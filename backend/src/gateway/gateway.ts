@@ -29,7 +29,6 @@ export class MyGateway implements OnModuleInit {
     console.log('received message', body);
     this.server.emit('onMessage', {
       message: body,
-      timestamp: new Date(),
     });
   }
 }
