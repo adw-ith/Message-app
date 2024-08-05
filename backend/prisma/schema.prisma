@@ -14,9 +14,80 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(uuid())
-  email      String   @unique
-  password  String
+  id                    Int                @id @default(autoincrement())
+  name                  String
+  email                 String             @unique
+  password              String
+  createdAt             DateTime           @default(now())
+  updatedAt             DateTime           @updatedAt
+  privateMessagesReceived  Message[]        @relation("ReceivedMessages")
+  privateMessagesSent      Message[]        @relation("SentMessages")
+  groupMemberships         GroupMembership[]
+  groupMessagesSent        GroupMessage[]
+  broadcastMessagesSent    BroadcastMessage[]
+  broadcastSubscriptions   BroadcastSubscription[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  senderId  Int
+  receiverId Int
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  sender    User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiver  User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+}
+
+model Group {
+  id            Int                @id @default(autoincrement())
+  name          String
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
+  members       GroupMembership[]
+  messages      GroupMessage[]
+}
+
+model GroupMembership {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  groupId   Int
+  user      User    @relation(fields: [userId], references: [id])
+  group     Group   @relation(fields: [groupId], references: [id])
+}
+
+model GroupMessage {
+  id        Int      @id @default(autoincrement())
+  content   String
+  senderId  Int
+  groupId   Int
+  createdAt DateTime @default(now())
+  sender    User     @relation(fields: [senderId], references: [id])
+  group     Group    @relation(fields: [groupId], references: [id])
+}
+
+model Broadcast {
+  id        Int                 @id @default(autoincrement())
+  name      String
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  messages  BroadcastMessage[]
+  subscribers BroadcastSubscription[]
+}
+
+model BroadcastMessage {
+  id        Int      @id @default(autoincrement())
+  content   String
+  senderId  Int
+  broadcastId Int
+  createdAt DateTime @default(now())
+  sender    User     @relation(fields: [senderId], references: [id])
+  broadcast Broadcast @relation(fields: [broadcastId], references: [id])
+}
+
+model BroadcastSubscription {
+  id         Int        @id @default(autoincrement())
+  userId     Int
+  broadcastId Int
+  user       User       @relation(fields: [userId], references: [id])
+  broadcast  Broadcast  @relation(fields: [broadcastId], references: [id])
 }
