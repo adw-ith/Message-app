@@ -11,6 +11,7 @@ import { SessionSerializer } from './auth/passport/session.serializer';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
 import { MessagesModule } from './messages/messages.module';
+import { GroupModule } from './group/group.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { MessagesModule } from './messages/messages.module';
     UserModule,
     AuthModule,
     MessagesModule,
+    GroupModule,
   ],
   controllers: [],
   providers: [LocalStrategy, SessionSerializer, AuthService, UserService],

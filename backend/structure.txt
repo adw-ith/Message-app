@@ -1,0 +1,40 @@
+### 1. **UserModule**
+   - **Purpose:** Manage user data and operations.
+   - **Includes:** 
+     - UserService: For CRUD operations on users.
+     - UserController: REST API endpoints for user management.
+
+### 2. **AuthModule**
+   - **Purpose:** Handle authentication and authorization.
+   - **Includes:** 
+     - AuthService: Logic for login, registration, and token management.
+     - AuthController: Endpoints for authentication (login, register).
+     - Guards and Strategies (e.g., JWT): For protecting routes.
+
+### 3. **GroupModule**
+   - **Purpose:** Manage creation and administration of groups.
+   - **Includes:**
+     - GroupService: For creating, updating, and deleting groups and managing memberships.
+     - GroupController: REST API endpoints for group operations.
+
+### 4. **BroadcastModule**
+   - **Purpose:** Manage creation and administration of broadcast channels.
+   - **Includes:**
+     - BroadcastService: For creating, updating, and managing broadcasts and subscriptions.
+     - BroadcastController: REST API endpoints for broadcast operations.
+
+### 5. **MessageModule**
+   - **Purpose:** Handle all messaging functionalities.
+   - **Includes:**
+     - MessageService: Logic for sending/receiving private, group, and broadcast messages.
+     - MessageGateway: WebSocket gateway for real-time communication.
+     - (Optional) MessageController: REST API endpoints for fetching message history.
+
+### Application Flow:
+- **User Management:** Managed by `UserModule`.
+- **Authentication:** Handled by `AuthModule`.
+- **Group Management:** Managed by `GroupModule`.
+- **Broadcast Management:** Managed by `BroadcastModule`.
+- **Messaging:** Centralized in `MessageModule` for private, group, and broadcast messages.
+
+This structure ensures a clean separation of concerns, making your application modular, scalable, and easy to maintain.
