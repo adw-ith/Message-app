@@ -11,6 +11,7 @@ import { LocalStrategy } from './auth/passport/local.strategy';
 import { SessionSerializer } from './auth/passport/session.serializer';
 import { AuthService } from './auth/auth.service';
 import { UserService } from './user/user.service';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UserService } from './user/user.service';
     PrismaModule,
     UserModule,
     AuthModule,
+    MessagesModule,
   ],
   controllers: [],
   providers: [LocalStrategy, SessionSerializer, AuthService, UserService],
