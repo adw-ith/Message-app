@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 
 import { LocalStrategy } from './auth/passport/local.strategy';
 import { SessionSerializer } from './auth/passport/session.serializer';
+import { AuthService } from './auth/auth.service';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
@@ -20,6 +22,6 @@ import { SessionSerializer } from './auth/passport/session.serializer';
     AuthModule,
   ],
   controllers: [],
-  providers: [LocalStrategy, SessionSerializer],
+  providers: [LocalStrategy, SessionSerializer, AuthService, UserService],
 })
 export class AppModule {}
